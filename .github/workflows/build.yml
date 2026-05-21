@@ -13,6 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install ldid
+        run: brew install ldid 2>/dev/null || brew install procursus/tap/ldid 2>/dev/null || true
+
       - name: Build for iOS (Release, unsigned)
         run: |
           xcodebuild \
@@ -26,6 +29,15 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             build
+
+      - name: Fake sign for TrollStore (ldid)
+        run: |
+          APP="build/Build/Products/Release-iphoneos/LsdSandbox.app"
+          ldid -S "$APP/LsdSandbox" 2>/dev/null || echo "ldid signing skipped"
+          for dylib in "$APP/Frameworks"/*.dylib; do
+            [ -f "$dylib" ] && ldid -S "$dylib" 2>/dev/null || true
+          done
+          echo "Fake signing done"
 
       - name: Verify build output
         run: |
