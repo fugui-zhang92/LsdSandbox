@@ -23,7 +23,16 @@ final class FileBrowserViewController: UIViewController {
         view.backgroundColor = UIColor.systemGroupedBackground
         setupPathLabel()
         setupTableView()
-        navigateTo(rootPath)
+        currentPath = rootPath
+        pathLabel.text = rootPath
+        // Defer directory enumeration to avoid crash on launch
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if entries.isEmpty && currentPath == rootPath {
+            navigateTo(rootPath)
+        }
     }
 
     // MARK: - UI
@@ -99,9 +108,12 @@ final class FileBrowserViewController: UIViewController {
     }
 
     private func showAlert(_ title: String, message: String) {
-        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "好", style: .default))
-        present(ac, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, self.view.window != nil else { return }
+            let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "好", style: .default))
+            self.present(ac, animated: true)
+        }
     }
 }
 
@@ -277,9 +289,12 @@ final class FileEditorViewController: UIViewController {
     }
 
     private func showAlert(_ title: String, message: String = "") {
-        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "好", style: .default))
-        present(ac, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, self.view.window != nil else { return }
+            let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "好", style: .default))
+            self.present(ac, animated: true)
+        }
     }
 }
 
