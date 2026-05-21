@@ -1,0 +1,81 @@
+name: Build LsdSandbox IPA
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:   # 手动触发
+
+jobs:
+  build:
+    runs-on: macos-14   # macOS + Apple Silicon
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.1'
+
+      - name: Install ldid (fake sign tool)
+        run: |
+          brew install ldid 2>/dev/null || true
+          which ldid || echo "ldid will be installed via procursus"
+
+      - name: Build for iOS (Release, no signing)
+        run: |
+          xcodebuild \
+            -project LsdSandbox.xcodeproj \
+            -scheme LsdSandbox \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            ONLY_ACTIVE_ARCH=NO \
+            BITCODE_GENERATION_MODE=bitcode \
+            build
+
+      - name: Verify build output
+        run: |
+          echo "=== Build products ==="
+          find build/Build/Products/Release-iphoneos -maxdepth 3 -type d | sort
+          echo "=== App contents ==="
+          ls -la "build/Build/Products/Release-iphoneos/LsdSandbox.app/"
+          echo "=== Binary ==="
+          file "build/Build/Products/Release-iphoneos/LsdSandbox.app/LsdSandbox"
+
+      - name: Fake sign binary and dylibs (for jailbreak)
+        run: |
+          APP="build/Build/Products/Release-iphoneos/LsdSandbox.app"
+          # Fake sign main binary
+          ldid -S "$APP/LsdSandbox"
+          # Fake sign dylibs
+          for dylib in "$APP/Frameworks"/*.dylib; do
+            [ -f "$dylib" ] && ldid -S "$dylib"
+          done
+          echo "Fake signing complete"
+
+      - name: Create IPA
+        run: |
+          APP="build/Build/Products/Release-iphoneos/LsdSandbox.app"
+          mkdir -p Payload
+          cp -R "$APP" Payload/
+          zip -r LsdSandbox.ipa Payload/
+          rm -rf Payload
+          ls -lh LsdSandbox.ipa
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LsdSandbox.ipa
+          path: LsdSandbox.ipa
+          retention-days: 90
+
+      - name: Upload app artifact (for inspection)
+        uses: actions/upload-artifact@v4
+        with:
+          name: LsdSandbox.app
+          path: build/Build/Products/Release-iphoneos/LsdSandbox.app
+          retention-days: 7

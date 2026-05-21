@@ -1,0 +1,19 @@
+# Xcode
+build/
+DerivedData/
+*.xcworkspace
+xcuserdata/
+*.xcarchive
+
+# Dependencies
+*.dylib
+
+# Embedded provisioning
+embedded.mobileprovision
+
+# IPA
+*.ipa
+
+# OS
+.DS_Store
+Thumbs.db
