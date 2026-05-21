@@ -3,11 +3,12 @@ name: Build LsdSandbox IPA
 on:
   push:
     branches: [main, master]
-  workflow_dispatch:   # 手动触发
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: macos-14
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,14 +21,11 @@ jobs:
             -configuration Release \
             -sdk iphoneos \
             -derivedDataPath build \
-            CODE_SIGN_IDENTITY="-" \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
-            AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            DEVELOPMENT_TEAM="" \
-            PROVISIONING_PROFILE_SPECIFIER="" \
-            ONLY_ACTIVE_ARCH=NO \
-            build 2>&1 | tail -80
+            build
 
       - name: Verify build output
         run: |
@@ -37,17 +35,6 @@ jobs:
           ls -la "build/Build/Products/Release-iphoneos/LsdSandbox.app/"
           echo "=== Binary ==="
           file "build/Build/Products/Release-iphoneos/LsdSandbox.app/LsdSandbox"
-
-      - name: Fake sign binary and dylibs (for jailbreak)
-        run: |
-          APP="build/Build/Products/Release-iphoneos/LsdSandbox.app"
-          # Fake sign main binary
-          ldid -S "$APP/LsdSandbox"
-          # Fake sign dylibs
-          for dylib in "$APP/Frameworks"/*.dylib; do
-            [ -f "$dylib" ] && ldid -S "$dylib"
-          done
-          echo "Fake signing complete"
 
       - name: Create IPA
         run: |
