@@ -14,7 +14,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install ldid
-        run: brew install ldid 2>/dev/null || brew install procursus/tap/ldid 2>/dev/null || true
+        run: |
+          brew install ldid 2>/dev/null && echo "ldid: ok" || {
+            brew install procursus/tap/ldid 2>/dev/null && echo "ldid(procursus): ok" || echo "ldid: FAILED"
+          }
+          which ldid && ldid 2>&1 | head -1
 
       - name: Build for iOS (Release, unsigned)
         run: |
@@ -30,23 +34,30 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             build
 
-      - name: Fake sign for TrollStore (ldid)
-        run: |
-          APP="build/Build/Products/Release-iphoneos/LsdSandbox.app"
-          ldid -S "$APP/LsdSandbox" 2>/dev/null || echo "ldid signing skipped"
-          for dylib in "$APP/Frameworks"/*.dylib; do
-            [ -f "$dylib" ] && ldid -S "$dylib" 2>/dev/null || true
-          done
-          echo "Fake signing done"
-
       - name: Verify build output
         run: |
-          echo "=== Build products ==="
-          find build/Build/Products/Release-iphoneos -maxdepth 3 -type d | sort
+          APP="build/Build/Products/Release-iphoneos/LsdSandbox.app"
           echo "=== App contents ==="
-          ls -la "build/Build/Products/Release-iphoneos/LsdSandbox.app/"
+          ls -la "$APP/"
           echo "=== Binary ==="
-          file "build/Build/Products/Release-iphoneos/LsdSandbox.app/LsdSandbox"
+          file "$APP/LsdSandbox"
+          [ -f "$APP/PkgInfo" ] && echo "PkgInfo: present" || echo "PkgInfo: MISSING"
+          [ -f "$APP/libxpf.dylib" ] && echo "libxpf.dylib: present" || echo "libxpf.dylib: MISSING"
+          [ -f "$APP/libchoma.dylib" ] && echo "libchoma.dylib: present" || echo "libchoma.dylib: MISSING"
+          echo "=== No Frameworks folder (should not exist) ==="
+          [ -d "$APP/Frameworks" ] && echo "WARNING: Frameworks dir exists!" || echo "No Frameworks dir - GOOD"
+
+      - name: Fake sign for jailbreak (ldid)
+        run: |
+          APP="build/Build/Products/Release-iphoneos/LsdSandbox.app"
+          if which ldid >/dev/null 2>&1; then
+            ldid -S "$APP/LsdSandbox" && echo "Binary signed" || echo "Binary sign FAILED"
+            for f in "$APP/libxpf.dylib" "$APP/libchoma.dylib"; do
+              [ -f "$f" ] && ldid -S "$f" 2>/dev/null && echo "Signed: $f" || true
+            done
+          else
+            echo "ldid not available, app will be unsigned"
+          fi
 
       - name: Create IPA
         run: |
@@ -63,10 +74,3 @@ jobs:
           name: LsdSandbox.ipa
           path: LsdSandbox.ipa
           retention-days: 90
-
-      - name: Upload app artifact (for inspection)
-        uses: actions/upload-artifact@v4
-        with:
-          name: LsdSandbox.app
-          path: build/Build/Products/Release-iphoneos/LsdSandbox.app
-          retention-days: 7

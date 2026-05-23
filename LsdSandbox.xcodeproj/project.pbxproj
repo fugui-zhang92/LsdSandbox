@@ -16,16 +16,6 @@
 		PBXBuildFile_LsdHelper_m /* LsdHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = PBXFileRef_LsdHelper_m; };
 		PBXBuildFile_LsdExploit_h /* LsdExploit.h in Headers */ = {isa = PBXBuildFile; fileRef = PBXFileRef_LsdExploit_h; };
 		PBXBuildFile_LsdExploit_c /* LsdExploit.c in Sources */ = {isa = PBXBuildFile; fileRef = PBXFileRef_LsdExploit_c; };
-		PBXBuildFile_libxpf /* libxpf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = PBXFileRef_libxpf; };
-		PBXBuildFile_libchoma /* libchoma.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = PBXFileRef_libchoma; };
-		PBXBuildFile_Embed_libxpf /* libxpf.dylib in Embed Frameworks */ = {
-			isa = PBXBuildFile; fileRef = PBXFileRef_libxpf;
-			settings = {ATTRIBUTES = (CodeSignOnCopy, ); };
-		};
-		PBXBuildFile_Embed_libchoma /* libchoma.dylib in Embed Frameworks */ = {
-			isa = PBXBuildFile; fileRef = PBXFileRef_libchoma;
-			settings = {ATTRIBUTES = (CodeSignOnCopy, ); };
-		};
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,10 +28,9 @@
 		PBXFileRef_LsdHelper_m = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LsdHelper.m; sourceTree = "<group>"; };
 		PBXFileRef_LsdExploit_h = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LsdExploit.h; sourceTree = "<group>"; };
 		PBXFileRef_LsdExploit_c = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = LsdExploit.c; sourceTree = "<group>"; };
-		PBXFileRef_libxpf = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libxpf.dylib; sourceTree = "<group>"; };
-		PBXFileRef_libchoma = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libchoma.dylib; sourceTree = "<group>"; };
 		PBXFileRef_InfoPlist = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		PBXFileRef_Entitlements = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LsdSandbox.entitlements; sourceTree = "<group>"; };
+		PBXFileRef_PkgInfo = {isa = PBXFileReference; lastKnownFileType = text; path = PkgInfo; sourceTree = "<group>"; };
 		PBXFileRef_Product = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LsdSandbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,8 +39,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				PBXBuildFile_libxpf,
-				PBXBuildFile_libchoma,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +49,6 @@
 			isa = PBXGroup;
 			children = (
 				PBXGroup_Source,
-				PBXGroup_Frameworks,
 				PBXGroup_Product,
 			);
 			sourceTree = "<group>";
@@ -80,19 +66,10 @@
 				PBXFileRef_LsdExploit_h,
 				PBXFileRef_LsdExploit_c,
 				PBXFileRef_InfoPlist,
+				PBXFileRef_PkgInfo,
 				PBXFileRef_Entitlements,
 			);
 			path = LsdSandbox;
-			sourceTree = "<group>";
-		};
-		PBXGroup_Frameworks = {
-			isa = PBXGroup;
-			children = (
-				PBXFileRef_libxpf,
-				PBXFileRef_libchoma,
-			);
-			name = Frameworks;
-			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		PBXGroup_Product = {
@@ -126,7 +103,7 @@
 			buildPhases = (
 				PBXSourcesBuildPhase,
 				PBXFrameworksBuildPhase,
-				PBXShellScript_EmbedFrameworks,
+				PBXShellScript_CopyDylibs,
 			);
 			buildRules = (
 			);
@@ -165,25 +142,23 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		PBXShellScript_EmbedFrameworks = {
+		PBXShellScript_CopyDylibs = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				PBXBuildFile_Embed_libxpf,
-				PBXBuildFile_Embed_libchoma,
 			);
 			inputPaths = (
 				"$(SRCROOT)/Frameworks/libxpf.dylib",
 				"$(SRCROOT)/Frameworks/libchoma.dylib",
 			);
-			name = "Embed Frameworks";
+			name = "Copy Dylibs";
 			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/libxpf.dylib",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/libchoma.dylib",
+				"$(BUILT_PRODUCTS_DIR)/$(EXECUTABLE_FOLDER_PATH)/libxpf.dylib",
+				"$(BUILT_PRODUCTS_DIR)/$(EXECUTABLE_FOLDER_PATH)/libchoma.dylib",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Embedding frameworks...\"";
+			shellScript = "cp \"$SRCROOT/Frameworks/libxpf.dylib\" \"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH/\"\ncp \"$SRCROOT/Frameworks/libchoma.dylib\" \"$BUILT_PRODUCTS_DIR/$EXECUTABLE_FOLDER_PATH/\"\necho \"Copied dylibs to app bundle root\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -213,20 +188,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LsdSandbox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lsd.sandbox;
@@ -245,20 +212,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LsdSandbox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lsd.sandbox;
