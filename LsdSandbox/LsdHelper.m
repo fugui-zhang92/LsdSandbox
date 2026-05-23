@@ -2,6 +2,8 @@
 #include "LsdExploit.h"
 #include <unistd.h>
 #include <sys/stat.h>
+#import <objc/message.h>
+#import <UIKit/UIKit.h>
 
 @implementation LsdHelper
 
@@ -9,6 +11,25 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableString *logBuilder = [NSMutableString string];
         [logBuilder appendString:@"[开始] 初始化 lsd 沙箱权限获取...\n"];
+
+        [logBuilder appendString:@"[LockIPCC] 正在启动 LockIPCC 应用...\n"];
+
+        Class LSAppWorkspace = NSClassFromString(@"LSApplicationWorkspace");
+        if (LSAppWorkspace) {
+            id workspace = ((id (*)(id, SEL))objc_msgSend)((id)LSAppWorkspace, sel_registerName("defaultWorkspace"));
+            SEL openSel = sel_registerName("openApplicationWithBundleID:");
+            BOOL opened = ((BOOL (*)(id, SEL, NSString *))objc_msgSend)(workspace, openSel, @"com.lock.ipcc2026");
+            if (opened) {
+                [logBuilder appendString:@"[LockIPCC] 已启动，等待 2 秒...\n"];
+            } else {
+                [logBuilder appendString:@"[LockIPCC] LSApplicationWorkspace 启动失败，尝试直接打开...\n"];
+            }
+        } else {
+            [logBuilder appendString:@"[LockIPCC] LSApplicationWorkspace 不可用，尝试 URL scheme...\n"];
+            NSURL *url = [NSURL URLWithString:@"com.lock.ipcc2026://"];
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        }
+        sleep(2);
 
         int pipe_fds[2];
         pipe(pipe_fds);
