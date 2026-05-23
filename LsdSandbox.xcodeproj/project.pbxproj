@@ -7,40 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01_PBXBuildFile_AppDelegate /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01_PBXFileRef_AppDelegate; };
-		02_PBXBuildFile_SceneDelegate /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02_PBXFileRef_SceneDelegate; };
-		03_PBXBuildFile_ViewController /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03_PBXFileRef_ViewController; };
-		04_PBXBuildFile_LsdHelper /* LsdHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 04_PBXFileRef_LsdHelper; };
-		05_PBXBuildFile_LsdExploit /* LsdExploit.c in Sources */ = {isa = PBXBuildFile; fileRef = 05_PBXFileRef_LsdExploit; };
-		06_PBXBuildFile_Assets /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06_PBXFileRef_Assets; };
-		07_PBXBuildFile_LaunchScreen /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07_PBXFileRef_LaunchScreen; };
-		08_PBXBuildFile_libxpf /* libxpf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 08_PBXFileRef_libxpf; };
-		09_PBXBuildFile_libchoma /* libchoma.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 09_PBXFileRef_libchoma; };
-		0A_PBXBuildFile_Embed_libxpf /* libxpf.dylib in Embed Frameworks */ = {
-			isa = PBXBuildFile; fileRef = 08_PBXFileRef_libxpf;
+		PBXBuildFile_AppDelegate_h /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = PBXFileRef_AppDelegate_h; };
+		PBXBuildFile_AppDelegate_m /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = PBXFileRef_AppDelegate_m; };
+		PBXBuildFile_main_m /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = PBXFileRef_main_m; };
+		PBXBuildFile_ViewController_h /* ViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = PBXFileRef_ViewController_h; };
+		PBXBuildFile_ViewController_m /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = PBXFileRef_ViewController_m; };
+		PBXBuildFile_LsdHelper_h /* LsdHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = PBXFileRef_LsdHelper_h; };
+		PBXBuildFile_LsdHelper_m /* LsdHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = PBXFileRef_LsdHelper_m; };
+		PBXBuildFile_LsdExploit_h /* LsdExploit.h in Headers */ = {isa = PBXBuildFile; fileRef = PBXFileRef_LsdExploit_h; };
+		PBXBuildFile_LsdExploit_c /* LsdExploit.c in Sources */ = {isa = PBXBuildFile; fileRef = PBXFileRef_LsdExploit_c; };
+		PBXBuildFile_libxpf /* libxpf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = PBXFileRef_libxpf; };
+		PBXBuildFile_libchoma /* libchoma.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = PBXFileRef_libchoma; };
+		PBXBuildFile_Embed_libxpf /* libxpf.dylib in Embed Frameworks */ = {
+			isa = PBXBuildFile; fileRef = PBXFileRef_libxpf;
 			settings = {ATTRIBUTES = (CodeSignOnCopy, ); };
 		};
-		0B_PBXBuildFile_Embed_libchoma /* libchoma.dylib in Embed Frameworks */ = {
-			isa = PBXBuildFile; fileRef = 09_PBXFileRef_libchoma;
+		PBXBuildFile_Embed_libchoma /* libchoma.dylib in Embed Frameworks */ = {
+			isa = PBXBuildFile; fileRef = PBXFileRef_libchoma;
 			settings = {ATTRIBUTES = (CodeSignOnCopy, ); };
 		};
-		0C_PBXBuildFile_FileBrowser /* FileBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C_PBXFileRef_FileBrowser; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		01_PBXFileRef_AppDelegate = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		02_PBXFileRef_SceneDelegate = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		03_PBXFileRef_ViewController = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		04_PBXFileRef_LsdHelper = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LsdHelper.m; sourceTree = "<group>"; };
-		05_PBXFileRef_LsdExploit = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = LsdExploit.c; sourceTree = "<group>"; };
-		06_PBXFileRef_Assets = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		07_PBXFileRef_LaunchScreen = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		08_PBXFileRef_libxpf = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libxpf.dylib; sourceTree = "<group>"; };
-		09_PBXFileRef_libchoma = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libchoma.dylib; sourceTree = "<group>"; };
-		0C_PBXFileRef_FileBrowser = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserViewController.swift; sourceTree = "<group>"; };
+		PBXFileRef_AppDelegate_h = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		PBXFileRef_AppDelegate_m = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		PBXFileRef_main_m = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		PBXFileRef_ViewController_h = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		PBXFileRef_ViewController_m = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		PBXFileRef_LsdHelper_h = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LsdHelper.h; sourceTree = "<group>"; };
+		PBXFileRef_LsdHelper_m = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LsdHelper.m; sourceTree = "<group>"; };
+		PBXFileRef_LsdExploit_h = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LsdExploit.h; sourceTree = "<group>"; };
+		PBXFileRef_LsdExploit_c = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = LsdExploit.c; sourceTree = "<group>"; };
+		PBXFileRef_libxpf = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libxpf.dylib; sourceTree = "<group>"; };
+		PBXFileRef_libchoma = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libchoma.dylib; sourceTree = "<group>"; };
 		PBXFileRef_InfoPlist = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		PBXFileRef_Entitlements = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LsdSandbox.entitlements; sourceTree = "<group>"; };
-		PBXFileRef_BridgingHeader = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LsdSandbox-Bridging-Header.h"; sourceTree = "<group>"; };
 		PBXFileRef_Product = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LsdSandbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -49,8 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08_PBXBuildFile_libxpf,
-				09_PBXBuildFile_libchoma,
+				PBXBuildFile_libxpf,
+				PBXBuildFile_libchoma,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +63,6 @@
 			children = (
 				PBXGroup_Source,
 				PBXGroup_Frameworks,
-				PBXGroup_Resources,
 				PBXGroup_Product,
 			);
 			sourceTree = "<group>";
@@ -70,13 +70,15 @@
 		PBXGroup_Source = {
 			isa = PBXGroup;
 			children = (
-				01_PBXFileRef_AppDelegate,
-				02_PBXFileRef_SceneDelegate,
-				03_PBXFileRef_ViewController,
-				0C_PBXFileRef_FileBrowser,
-				04_PBXFileRef_LsdHelper,
-				05_PBXFileRef_LsdExploit,
-				PBXFileRef_BridgingHeader,
+				PBXFileRef_AppDelegate_h,
+				PBXFileRef_AppDelegate_m,
+				PBXFileRef_main_m,
+				PBXFileRef_ViewController_h,
+				PBXFileRef_ViewController_m,
+				PBXFileRef_LsdHelper_h,
+				PBXFileRef_LsdHelper_m,
+				PBXFileRef_LsdExploit_h,
+				PBXFileRef_LsdExploit_c,
 				PBXFileRef_InfoPlist,
 				PBXFileRef_Entitlements,
 			);
@@ -86,20 +88,11 @@
 		PBXGroup_Frameworks = {
 			isa = PBXGroup;
 			children = (
-				08_PBXFileRef_libxpf,
-				09_PBXFileRef_libchoma,
+				PBXFileRef_libxpf,
+				PBXFileRef_libchoma,
 			);
 			name = Frameworks;
 			path = Frameworks;
-			sourceTree = "<group>";
-		};
-		PBXGroup_Resources = {
-			isa = PBXGroup;
-			children = (
-				06_PBXFileRef_Assets,
-				07_PBXFileRef_LaunchScreen,
-			);
-			path = LsdSandbox;
 			sourceTree = "<group>";
 		};
 		PBXGroup_Product = {
@@ -112,6 +105,20 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		PBXHeadersBuildPhase = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				PBXBuildFile_AppDelegate_h,
+				PBXBuildFile_ViewController_h,
+				PBXBuildFile_LsdHelper_h,
+				PBXBuildFile_LsdExploit_h,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		PBXNativeTarget = {
 			isa = PBXNativeTarget;
@@ -119,7 +126,6 @@
 			buildPhases = (
 				PBXSourcesBuildPhase,
 				PBXFrameworksBuildPhase,
-				PBXResourcesBuildPhase,
 				PBXShellScript_EmbedFrameworks,
 			);
 			buildRules = (
@@ -138,7 +144,6 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1530;
 			};
 			buildConfigurationList = PBXBuildConfigList_Project;
@@ -147,7 +152,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				"zh-Hans",
 				Base,
 			);
 			mainGroup = PBXGroup_Root;
@@ -160,41 +164,13 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		PBXResourcesBuildPhase = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				06_PBXBuildFile_Assets,
-				07_PBXBuildFile_LaunchScreen,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		PBXSourcesBuildPhase = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				01_PBXBuildFile_AppDelegate,
-				02_PBXBuildFile_SceneDelegate,
-				03_PBXBuildFile_ViewController,
-				04_PBXBuildFile_LsdHelper,
-				05_PBXBuildFile_LsdExploit,
-				0C_PBXBuildFile_FileBrowser,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
 /* Begin PBXShellScriptBuildPhase section */
 		PBXShellScript_EmbedFrameworks = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A_PBXBuildFile_Embed_libxpf,
-				0B_PBXBuildFile_Embed_libchoma,
+				PBXBuildFile_Embed_libxpf,
+				PBXBuildFile_Embed_libchoma,
 			);
 			inputPaths = (
 				"$(SRCROOT)/Frameworks/libxpf.dylib",
@@ -211,12 +187,27 @@
 		};
 /* End PBXShellScriptBuildPhase section */
 
+/* Begin PBXSourcesBuildPhase section */
+		PBXSourcesBuildPhase = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				PBXBuildFile_main_m,
+				PBXBuildFile_AppDelegate_m,
+				PBXBuildFile_ViewController_m,
+				PBXBuildFile_LsdHelper_m,
+				PBXBuildFile_LsdExploit_c,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
 /* Begin XCBuildConfiguration section */
 		PBXBuildConfig_Debug = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = LsdSandbox/LsdSandbox.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -238,13 +229,8 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = (
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lsd.sandbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "LsdSandbox/LsdSandbox-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -252,8 +238,8 @@
 		PBXBuildConfig_Release = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = LsdSandbox/LsdSandbox.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -275,13 +261,8 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				OTHER_LDFLAGS = (
-				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lsd.sandbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "LsdSandbox/LsdSandbox-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -337,8 +318,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -386,8 +365,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
